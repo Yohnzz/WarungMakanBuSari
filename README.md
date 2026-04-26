@@ -1,66 +1,43 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Story
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aku Raka. Dalam 2 hari terakhir, aku membuat CRUD API sederhana untuk Warung Makan Bu Sari.
+Di project ini, aku mengimplementasikan beberapa fitur utama seperti:
 
-## About Laravel
+* **Store** → `./assets/store`
+* **Delete** → `./assets/hapus`
+* **Data Seeder** → `./assets/seeder`
+[Aku Buat Seeder karena biar Bu Sari tidak perlu menambahkan Menu apa apa lagi]
+Aku cukup senang karena akhirnya bisa membuat project sederhana yang benar-benar bisa dipakai oleh Bu Sari.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Response Server:
+* **Get** → `./assets/Get`
+* **Post** → `./assets/Post`
+* **Delete** → `./assets/Delete`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Problem
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Selang 1 minggu, aku menerima pesan dari Bu Sari:
 
-## Learning Laravel
+> 🧓 “Nak, tadi aku coba tambah menu baru tapi kok nggak masuk ke daftar ya? Aku isi nama sama harganya, terus katanya sukses, tapi pas aku lihat menunya nggak ada.”
+* **Post** → `./assets/post2`
+* **Get** → `./assets/get2`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+> 🧓 “Ini juga aneh — aku coba hapus menu ‘Es Teh’ yang sudah nggak ada, tapi malah aplikasinya error terus. Tulisannya panjang banget, merah semua.”
+* **Delete** → `./assets/delete2`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Aku langsung panik. Aku buka lagi laptop, cek satu per satu kodenya… tapi malah makin bingung.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Selama kurang lebih 3 jam aku mencoba mencari masalahnya, tapi tetap tidak menemukan solusi.
 
-## Laravel Sponsors
+## Solution
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Akhirnya aku memutuskan untuk meminta bantuan temanku, Mario, yang lebih paham Laravel.
+Aku minta dia untuk membantu mengecek dan memperbaiki kodinganku.
 
-### Premium Partners
+Setelah diperbaiki, dia memberikan versi repository yang sudah dibenarkan:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+👉 [https://github.com/Yohnzz/WarungMakanBuSari/tree/codemario](https://github.com/Yohnzz/WarungMakanBuSari/tree/codemario)
 
-## Contributing
+## Thanks
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Aku sangat berterima kasih kepada Mario karena sudah membantu memperbaiki bug di project ini 🙌

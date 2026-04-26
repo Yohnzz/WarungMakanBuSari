@@ -34,7 +34,7 @@ class MenuController extends Controller
         $menu = new Menu();
         $menu->nama = $request->nama;
         $menu->harga = $request->harga;
-        
+
         return response()->json(['message' => 'Sukses, Bu!'], 201);
     }
 
