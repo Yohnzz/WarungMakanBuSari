@@ -1,66 +1,155 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Story (Mario POV)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Suatu pagi, aku di-chat oleh Raka lewat WhatsApp:
 
-## About Laravel
+> "Mar, minta tolong dong benerin error ku ini. Padahal 1 minggu yang lalu aku udah testing, udah bener."
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Dia juga mengirimkan screenshot error dan repository miliknya:
+👉 https://github.com/Yohnzz/WarungMakanBuSari/tree/CodeRaka
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aku pun membalas:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> "Oke, aku cek dulu ya. Mungkin besok sudah selesai."
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Setup
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Aku langsung clone repository milik Raka:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/Yohnzz/WarungMakanBuSari.git
+```
 
-## Laravel Sponsors
+Setelah itu, aku mulai testing dan hasilnya sama seperti yang dikirim oleh Raka — memang terdapat beberapa error.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Analisis Masalah
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Setelah aku cek, ternyata ada beberapa masalah pada struktur dan logic code:
 
-## Contributing
+### 🔧 Struktur Code
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Semua logic ditaruh di **Controller**, padahal seharusnya controller hanya mengatur response
+* Tidak ada pemisahan layer seperti:
 
-## Code of Conduct
+  * Repository
+  * Interface
+  * Request
+  * Controller (yang proper)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+### ❌ Problem 1: Store Data Tidak Masuk Database
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Masalah utama:
 
-## License
+* Tidak ada `$menu->save()` setelah assign data
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Akibatnya:
+
+* Response tetap sukses
+* Tapi data **tidak pernah tersimpan ke database**
+
+Kemungkinan penyebab:
+
+* Raka hanya mengecek response (status sukses), tapi tidak cek database
+* Saat minggu pertama, bug ini tidak terasa karena belum ada penambahan data oleh user
+
+---
+
+### ❌ Problem 2: Delete Data Error Panjang
+
+Saat menghapus data yang tidak ada, muncul error panjang berwarna merah.
+
+Penyebab:
+
+* Tidak ada error handling ketika data tidak ditemukan
+
+Contoh perbaikan:
+
+```php
+if(!$menu){
+    return response()->json([
+        'message' => 'Data menu yang dicari tidak ada'
+    ]);
+}
+```
+
+Kemungkinan:
+
+* Raka lupa menambahkan validasi ini
+* Bu Sari mencoba menghapus menu yang memang sudah tidak ada
+
+---
+
+## Solution
+
+Setelah memahami semua error, aku mulai memperbaiki logic pada MenuController.
+
+Hasilnya:
+
+* Fitur **Store** sudah menyimpan data dengan benar
+* Fitur **Delete** sudah aman dan tidak error lagi
+
+---
+
+## Refactor Code
+
+Selain memperbaiki bug, aku juga merapikan struktur project agar lebih maintainable.
+
+### 🗂️ Migration
+
+* Menambahkan migration baru untuk kategori
+* Menambahkan field gambar
+
+![Migration](./assets/migration.png)
+
+---
+
+### 🧩 Model
+
+* Menambahkan model **Kategori**
+* Memperbaiki model **Menu**
+
+![Model Kategori](./assets/model_kategori.png)
+![Model Menu](./assets/model_menu.png)
+
+---
+
+### 📦 Repository
+
+* Membuat:
+
+  * KategoriRepository
+  * MenuRepository
+
+![Repository](./assets/repo.png)
+
+---
+
+### 🔌 Interface & Provider
+
+* Membuat interface untuk masing-masing repository
+* Menambahkan service provider
+
+![Interface Menu](./assets/interface_menu.png)
+![Interface Kategori](./assets/interface_kategori.png)
+![Provider](./assets/provider.png)
+
+---
+
+### 📥 Request Validation
+
+* Membuat request validation untuk:
+
+  * Menu
+  * Kategori
+
+![Request Menu](./assets/request_menu.png)
+![Request Kategori](./assets/request_kategori.png)
+
+---
+
+# TO BE CONTINUE
