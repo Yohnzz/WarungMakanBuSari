@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+    protected $table = 'menus';
+    protected $fillable = ['nama', 'harga', 'kategori', 'gambar'];
 
-        protected $fillable = ['nama', 'harga', 'kategori'];
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori', 'id_kategori');
+    }
 
 }

@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama'); 
             $table->integer('harga'); 
-            $table->string('kategori')->nullable(); 
+            $table->unsignedBigInteger('kategori');
+            $table->string('gambar')->nullable();
             $table->timestamps();
+            $table->foreign('kategori')->references('id_kategori')->on('table_kategori')->onDelete('cascade');
         });
     }
 
